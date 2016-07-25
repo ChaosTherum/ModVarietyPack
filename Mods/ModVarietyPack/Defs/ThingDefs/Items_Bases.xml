@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- item bases -->
+	<!-- ressource -->
+	<ThingDef Name="ResourceBase" Abstract="True">
+	<thingClass>ThingWithComps</thingClass>
+	<label>unspecified resource</label>
+	<category>Item</category>
+	<resourceReadoutPriority>Middle</resourceReadoutPriority>
+	<useHitPoints>true</useHitPoints>
+	<selectable>true</selectable>
+	<altitudeLayer>Item</altitudeLayer>
+	<stackLimit>75</stackLimit>
+	<comps>
+	  <li Class="CompProperties_Forbiddable"/>
+	</comps>
+	<alwaysHaulable>true</alwaysHaulable>
+	<drawGUIOverlay>true</drawGUIOverlay>
+	<rotatable>false</rotatable>
+	<pathCost>15</pathCost>
+  </ThingDef>
+
+	<ThingDef Abstract="True" Name="OrganicProductBase" ParentName="ResourceBase">
+		<graphicData>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<socialPropernessMatters>true</socialPropernessMatters>
+		<statBases>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<DeteriorationRate>5</DeteriorationRate>
+		</statBases>
+		<tickerType>Rare</tickerType>
+	</ThingDef>
+
+	<ThingDef Abstract="True" Name="PlantFoodRawBase" ParentName="OrganicProductBase">
+		<ingestible>
+			<!--<preferability>Raw</preferability>
+			 MVP modded to scale with plants
+			was <nutrition>0.05</nutrition> -->
+			<eatEffect>EatVegetarian</eatEffect>
+			<soundEat>RawVegetable_Eat</soundEat>
+		</ingestible>
+		<thingCategories>
+			<li>PlantFoodRaw</li>
+		</thingCategories>
+		<comps>
+			<li Class="CompProperties_FoodPoisoningChance" />
+		</comps>
+	</ThingDef>
+
+	<ThingDef Abstract="True" Name="FruitFoodRawBase" ParentName="OrganicProductBase" >
+		<ingestible>
+			<preferability>RawTasty</preferability>
+			<tastesRaw>false</tastesRaw>
+			<!-- MVP modded to scale with plants
+			was <nutrition>0.05</nutrition> -->
+			<eatEffect>EatVegetarian</eatEffect>
+			<soundEat>RawVegetable_Eat</soundEat>
+		</ingestible>
+		<thingCategories>
+			<li>FruitFoodRaw</li>
+		</thingCategories>
+	</ThingDef>
+
+	<!-- meal -->
+	<ThingDef Name="MealBase" Abstract="True">
+		<thingClass>ThingWithComps</thingClass>
+		<category>Item</category>
+		<useHitPoints>true</useHitPoints>
+		<selectable>true</selectable>
+		<statBases>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+		</statBases>
+		<altitudeLayer>Item</altitudeLayer>
+		<stackLimit>10</stackLimit>
+		<tickerType>Rare</tickerType>
+		<socialPropernessMatters>true</socialPropernessMatters>
+		<thingCategories>
+			<li>FoodMeals</li>
+		</thingCategories>
+		<alwaysHaulable>true</alwaysHaulable>
+		<comps>
+			<li Class="CompProperties_Forbiddable" />
+			<li Class="CompProperties_Ingredients" />
+			<li Class="CompProperties_FoodPoisonable" />
+		</comps>
+		<pathCost>15</pathCost>
+		<resourceReadoutPriority>Last</resourceReadoutPriority>
+		<drawGUIOverlay>true</drawGUIOverlay>
+		<ingestible>
+			<foodType>Meal, Processed</foodType>
+			<maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
+		</ingestible>
+	</ThingDef>
+	
+	<ThingDef ParentName="MealBase" Name="MealRottable" Abstract="True">
+		<comps>
+			<li Class="CompProperties_Rottable">
+				<daysToRotStart>4</daysToRotStart>
+				<rotDestroys>true</rotDestroys>
+			</li>
+		</comps>
+	</ThingDef>
+
+
+	<!-- body part -->
+	<ThingDef Name="BodyPartBase" Abstract="True">
+		<label>body part</label>
+		<thingClass>ThingWithComps</thingClass>
+		<category>Item</category>
+		<useHitPoints>true</useHitPoints>
+		<selectable>true</selectable>
+		<statBases>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+		</statBases>
+		<altitudeLayer>Item</altitudeLayer>
+		<tickerType>Never</tickerType>
+		<alwaysHaulable>true</alwaysHaulable>
+		<isBodyPartOrImplant>true</isBodyPartOrImplant>
+		<comps>
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>      
+		<pathCost>10</pathCost>
+	</ThingDef>
+
+
+	<!-- unfinished bases -->
+	<ThingDef Name="UnfinishedBase" Abstract="True">
+		<thingClass>UnfinishedThing</thingClass>
+		<category>Item</category>
+		<label>Unfinished thing</label>
+		<graphicData>
+			<texPath>Things/Item/Unfinished/UnfinishedSculpture</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<altitudeLayer>Item</altitudeLayer>
+		<useHitPoints>true</useHitPoints>
+		<isUnfinishedThing>true</isUnfinishedThing>
+		<selectable>true</selectable>
+		<tradeability>Never</tradeability>
+		<drawerType>RealtimeOnly</drawerType>
+		<!-- For CompForbiddable -->
+		<statBases>
+			<MaxHitPoints>50</MaxHitPoints>
+		</statBases>
+		<comps>
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
+		<alwaysHaulable>true</alwaysHaulable>
+		<rotatable>false</rotatable>
+		<pathCost>15</pathCost>
+		<thingCategories>
+			<li>Unfinished</li>
+		</thingCategories>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Woody</li>
+			<li>Stony</li>
+		</stuffCategories>
+	</ThingDef>
+
+	<ThingDef ParentName="UnfinishedBase">
+		<defName>UnfinishedProsthesis</defName>
+		<label>Unfinished prosthesis</label>
+		<graphicData>
+			<texPath>Items/MedProsthesis_unfinished</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Woody</li>
+			<li>Stony</li>
+		</stuffCategories>
+	</ThingDef>
+
+
+
+
+
+
+
+
+	
+</Defs>
